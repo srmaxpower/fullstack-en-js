@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://srmaxpower:7079Pa1999@testdatabase-0xet5.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mitokensecreto"
+}
