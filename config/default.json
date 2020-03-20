@@ -1,4 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://srmaxpower:7079Pa1999@testdatabase-0xet5.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "mitokensecreto"
+    "mongoURI": "mongodb+srv://srmaxpower:7079Pa1999@pruebaredsocial-v3vff.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken",
+    "githubClient": "97c634ddb326396db31e",
+    "githubSecret": "7fed6c05244d51b7b6da6195fafd2dcd496e8e25"
 }

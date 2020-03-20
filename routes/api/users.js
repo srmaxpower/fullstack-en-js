@@ -34,6 +34,7 @@ router.post(
       return res.status(666).json({
         errors: errors.array()
       });
+
     }
 
     const {
@@ -42,24 +43,23 @@ router.post(
       password
     } = req.body;
     try {
-      //comprobar si el usuario existe,  
-      let user = User.findOne({
+      let user = await User.findOne({
         email
       });
       if (user) {
         return res.status(400).json({
           errors: [{
-            message: 'el usuario existe '
+            msg: 'user already exists'
           }]
         });
       }
 
-      //obtener usuarios con gravatar,
       const avatar = gravatar.url(email, {
         s: '200',
         r: 'pg',
         d: 'mm'
       })
+
       user = new User({
         name,
         email,
@@ -67,25 +67,32 @@ router.post(
         password
       });
 
-      //encriptar la password con bcrypt 
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
       await user.save();
 
-      //y retornar el jsonwebtoken
       const payload = {
         user: {
           id: user.id
         }
       }
-      jwt.sign(payload, );
 
+      jwt.sign(payload, config.get('jwtSecret'), {
+        expiresIn: 360000
+      }, (err, token) => {
+        if (err) throw err;
+        res.json({
+          token
+        });
+      })
 
-      res.send('usuario registrado');
     } catch (err) {
-      console.error(err.message);
-      res.status(666).send('no era por ahi');
+      console.error(err.messaege);
+      res.status(500).send('server error');
     }
+
+
+
   }
 );
 
